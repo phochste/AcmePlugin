@@ -1,4 +1,4 @@
-function editHandler(e) {
+function editHandler(e,tab) {
     var resource;
 
     if (e.linkUrl) {
@@ -7,16 +7,21 @@ function editHandler(e) {
     else if (e.srcUrl) {
         resource = e.srcUrl;
     }
-    else {
+    else if (e.pageUrl) {
         resource = e.pageUrl;
     }
+    else {
+        resource = tab.url;
+    }
 
-    chrome.tabs.create({
-        url : 'https://solideditor.patrickhochstenbach.net/?resource=' + escape(resource)
-    });
+    if (resource) {
+        chrome.tabs.create({
+            url : 'https://solideditor.patrickhochstenbach.net/?resource=' + escape(resource)
+        });
+    }
 }
 
-function wacHandler(e) {
+function wacHandler(e,tab) {
     var resource;
 
     if (e.linkUrl) {
@@ -25,8 +30,11 @@ function wacHandler(e) {
     else if (e.srcUrl) {
         resource = e.srcUrl;
     }
-    else {
+    else if (e.pageUrl) {
         resource = e.pageUrl;
+    }
+    else {
+        resource = tab.url;
     }
 
     if (resource) {
