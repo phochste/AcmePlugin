@@ -1,9 +1,3 @@
-# AcmePlugin
+# Svelte Chrome Plugin
 
-Chrome plugin to open Solid resources in various Acme tools.
-
-## Installation
-
-- Go to your chrome extensions `chrome://extentions`
-- Switch to developer mode
-- Load unpacked and select this plugin directory
+See: https://maurogarcia.dev/maurogarcia.dev/posts/how-to-build-your-next-chrome-extension-with-svelte/
