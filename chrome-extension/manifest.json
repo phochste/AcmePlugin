@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "AcmeMe",
+  "name": "Acme",
   "description": "This extension provides an Acme context menu",
   "version": "1.0",
 
