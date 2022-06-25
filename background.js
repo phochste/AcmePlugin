@@ -1,3 +1,14 @@
+function openTab(type,resource) {
+    console.log(`openTab(${type})`);
+    chrome.storage.sync.get([type], (result) => {
+        let template = result[type].replaceAll(/{resource}/g,escape(resource));
+        console.log(`redirecting to : ${template}`);
+        chrome.tabs.create({
+            url: template
+        }); 
+    });
+}
+
 function editHandler(e,tab) {
     var resource;
 
@@ -15,9 +26,7 @@ function editHandler(e,tab) {
     }
 
     if (resource) {
-        chrome.tabs.create({
-            url : 'https://solideditor.patrickhochstenbach.net/?resource=' + escape(resource)
-        });
+        openTab("editor",resource);
     }
 }
 
@@ -38,9 +47,7 @@ function wacHandler(e,tab) {
     }
 
     if (resource) {
-        chrome.tabs.create({
-            url : 'https://waceditor.patrickhochstenbach.net/?resource=' + escape(resource)
-        }); 
+        openTab("waceditor",resource);
     }
 }
 

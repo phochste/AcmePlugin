@@ -11,6 +11,8 @@
         "scripts": ["background.js"]
     },
 
+    "options_page": "options.html",
+
     "action": {
         "default_icon": {                
           "40": "logo.png"
@@ -19,6 +21,7 @@
 
     "permissions": [
         "tabs",
-        "contextMenus"
+        "contextMenus" ,
+        "storage"
     ]
 }
