@@ -64,7 +64,7 @@
 
 <main>
 
-<h1>AcmePlugin Options</h1>
+<h1>Acme Open In - Options</h1>
 
 <p>
     <b>Total:</b>
@@ -83,21 +83,23 @@
 
 <b>Add a context menu item</b>
 <form on:submit|preventDefault={onSubmit}>
-   <div>
-      <label for="key">Name</label>
-      <input type="text" name="key"/>
-   </div>
-   <div>
-      <label for="url">Url</label>
-      <input type="text" name="url" size="60"/>
-   </div>
+    <table>
+        <tr>
+            <td><label for="key">Title([<i>Guard</i>]):</label></td>
+            <td><input type="text" name="key" size="60"/></td>
+        </tr>
+        <tr>
+            <td><label for="url">Url:</label></td>
+            <td><input type="text" name="url" size="60"/></td>
+        </tr>
+    </table>
    <button type="submit">Add</button>
 </form>
 
 <hr/>
 
 <p>
-Add context menu items to your AcmePlugin. The <b>Name</b> should be
+Add context menu items to your Acme Open In extension. The <b>Title</b> should be
 a title for a menu item such as <i>Open...</i>, <i>Edit...</i>. The
 <b>Url</b> should point to an application you wan to open. Use 
 the <tt>{resource}</tt> template to fill in the current
@@ -109,6 +111,31 @@ Some examples:
     <li><b>Open...</b> https://otto-aa.github.io/solid-filemanager/?url={resource}</li>
     <li><b>Edit...</b> https://solideditor.patrickhochstenbach.net/?resource={resource}</li>
     <li><b>Permissions...</b> https://waceditor.patrickhochstenbach.net/?resource={resource}</li>
+</ul>
+
+<p>
+A <i>Guard</i> is a method to restrict when these context menu items appear.
+There are two types of guards:
+</p>
+ <ul>
+    <li>[<b>document~</b><i>URLPattern</i>] - only show the menu item when the current page matches
+    a URLPattern.</li>
+    <li>[<b>target~</b><i>URLPattern</i>] - only show the menu item when the context link matches
+    a URLPattern.</li>
+ </ul>
+<p>
+    and
+</p>
+<ul>
+    <li><i>URLPattern</i> - is a wildcard pattern such as 'https://*.google.com/foo*bar'</li>
+</ul>
+
+<p>
+    E.g. Only add a "Test..." context menu when the current page is a GitHub page:
+</p>
+
+<ul>
+    <li><b>Test...[document~https://github.com/*]</b> http://foo.bar/?url={resource}</li>
 </ul>
 
 </main>

@@ -32,15 +32,44 @@ function openHandler(e,tab) {
     }
 }
 
+function parseKey(key) {
+    console.log(`parseKey(${key})`);
+
+    let title = key.replaceAll(/\[.*/g,'');
+    let documentUrlPatterns = [];
+    let targetUrlPatterns = [];
+
+    let documentMatch = /\[document~([^\]]+)/g.exec(key);
+    let targetMatch   = /\[target~([^\]]+)/g.exec(key);
+
+    if (documentMatch) {
+        documentUrlPatterns.push(documentMatch[1]);
+    }
+
+    if (targetMatch) {
+        targetUrlPatterns.push(targetMatch[1]);
+    }
+
+    let params = {
+        "id": key ,
+        "title": title ,
+        "documentUrlPatterns": documentUrlPatterns,
+        "targetUrlPatterns": targetUrlPatterns,
+        "contexts": ["image","link","page"],
+        "onclick": openHandler
+    };
+
+    console.log(params);
+
+    return params;
+}
+
 chrome.storage.sync.get(null, (items) => {
     var allKeys = Object.keys(items);
     allKeys.forEach( key => {
-        chrome.contextMenus.create({
-            "id": key,
-            "title": key ,
-            "contexts": ["image","link","page"],
-            "onclick": openHandler
-        });
+        chrome.contextMenus.create(
+            parseKey(key)
+        );
     });
 });
 
@@ -50,12 +79,9 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
         if (namespace === 'sync') {
             if (!oldValue) {
                 // We have a new entry...
-                chrome.contextMenus.create({
-                    "id": key,
-                    "title": key ,
-                    "contexts": ["image","link","page"],
-                    "onclick": openHandler
-                }); 
+                chrome.contextMenus.create(
+                    parseKey(key)
+                ); 
             }
             else if (!newValue) {
                 // An entry was deleted...
