@@ -55,8 +55,7 @@ function parseKey(key) {
         "title": title ,
         "documentUrlPatterns": documentUrlPatterns,
         "targetUrlPatterns": targetUrlPatterns,
-        "contexts": ["image","link","page"],
-        "onclick": openHandler
+        "contexts": ["image","link","page"]
     };
 
     console.log(params);
@@ -70,6 +69,7 @@ chrome.storage.sync.get(null, (items) => {
         chrome.contextMenus.create(
             parseKey(key)
         );
+        chrome.contextMenus.onClicked.addListener(openHandler);
     });
 });
 
@@ -82,6 +82,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
                 chrome.contextMenus.create(
                     parseKey(key)
                 ); 
+                chrome.contextMenus.onClicked.addListener(openHandler);
             }
             else if (!newValue) {
                 // An entry was deleted...
