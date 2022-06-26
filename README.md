@@ -48,7 +48,7 @@ and
 
 E.g. Only add a "Test..." context menu when the current page is a GitHub page:
 
-_ _Test...[document~https://github.com/*]_ http://foo.bar/?url={resource}
+- _Test...[document~https://github.com/*]_ http://foo.bar/?url={resource}
 
 ### How to create your own extension
 
