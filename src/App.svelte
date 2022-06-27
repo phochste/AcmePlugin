@@ -135,7 +135,27 @@ There are two types of guards:
 </p>
 
 <ul>
-    <li><b>Test...[document~https://github.com/*]</b> http://foo.bar/?url={resource}</li>
+    <li>
+        <b>Test...[document~https://github.com/*]</b> 
+        http://foo.bar/?url={resource}
+    </li>
+</ul>
+
+<p>
+    A document and target guard can be combined. E.g. On GitHub open all links
+    with a `.txt` extension in a text editor, and all links with a `.doc` in
+    a doc editor.
+</p>
+
+<ul>
+    <li>
+        <b>Edit...[document~https://github.com/*][target~https://*/*.txt]</b>
+        http://texteditor.org/?url={resource}
+    </li>
+    <li>
+        <b>Edit...[document~https://github.com/*][target~https://*/*.doc]</b>
+        http://doceditor.org/?url={resource}
+    </li>
 </ul>
 
 </main>
