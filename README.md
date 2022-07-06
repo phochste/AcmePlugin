@@ -29,7 +29,16 @@ Check the `Options` menu of the new extension and you are set.
 
 ## Usage
 
-Add context menu items to your Acme Open In extension. The Title should be a title for a menu item such as _Open..._, _Edit..._ The Url should point to an application you wan to open. Use the `{resource}` template to fill in the current link, image, page URL that is in context.
+<img src="https://github.com/phochste/AcmePlugin/blob/main/documentation/context_menu.png?raw=true" width="350" alt="Context Menu"><br>
+<i>Context menu for each link and page, showing the Edit, Open and Permissions
+links that are available for the current context (a link on a webpage).</i>
+
+<img src="https://github.com/phochste/AcmePlugin/blob/main/documentation/plugin_options.png?raw=true" width="350" alt="Options Menu"><br>
+<i>Plugin options menu, adding a new Upload menu item with a URL template.</i>
+
+### Configuration
+
+Add context menu items to your Acme Open In extension. The Title should be a title for a menu item such as _Open..._, _Edit..._ The URL should point to an application you wan to open. Use the `{resource}` template to fill in the current link, image, page URL that is in context.
 
 Some examples:
 
@@ -49,6 +58,8 @@ and
 E.g. Only add a "Test..." context menu when the current page is a GitHub page:
 
 - _Test...[document~https://github.com/*]_ http://foo.bar/?url={resource}
+
+## Development
 
 ### How to create your own extension
 
