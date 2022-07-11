@@ -58,19 +58,16 @@ function parseKey(key) {
         "contexts": ["image","link","page"]
     };
 
-    console.log(params);
-
     return params;
 }
 
 chrome.storage.sync.get(null, (items) => {
     var allKeys = Object.keys(items);
     allKeys.forEach( key => {
-        chrome.contextMenus.create(
-            parseKey(key)
-        );
-        chrome.contextMenus.onClicked.addListener(openHandler);
+        let parsedKey = parseKey(key);
+        chrome.contextMenus.create(parsedKey, () => chrome.runtime.lastError);
     });
+    chrome.contextMenus.onClicked.addListener(openHandler);
 });
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
@@ -79,9 +76,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
         if (namespace === 'sync') {
             if (!oldValue) {
                 // We have a new entry...
-                chrome.contextMenus.create(
-                    parseKey(key)
-                ); 
+                chrome.contextMenus.create( parseKey(key), () => chrome.runtime.lastError); 
                 chrome.contextMenus.onClicked.addListener(openHandler);
             }
             else if (!newValue) {
@@ -99,4 +94,6 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
           `Old value was "${oldValue}", new value is "${newValue}".`
         );
     }
+
+    return true;
 });
