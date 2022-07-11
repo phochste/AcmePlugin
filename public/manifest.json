@@ -2,12 +2,8 @@
   "manifest_version": 3,
 
   "name": "Acme Open In",
-  "description": "This extension provides an Acme context menu",
-<<<<<<< HEAD
-  "version": "0.0.1",
-=======
-  "version": "0.0.2",
->>>>>>> 70433e1de001b07073113613974d845cc212444d
+  "description": "Add a configurable context sensitive menu of links to external applications",
+  "version": "0.0.3",
 
   "icons": { "40": "logo.png" },
 
