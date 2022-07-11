@@ -69,7 +69,6 @@ function loadContextMenu() {
             let parsedKey = parseKey(key);
             chrome.contextMenus.create(parsedKey, () => chrome.runtime.lastError);
         });
-        chrome.contextMenus.onClicked.addListener(openHandler);
     });
 }
 
@@ -82,6 +81,9 @@ if (chrome.runtime && chrome.runtime.onStartup) {
     console.log('onStartUp');
     chrome.runtime.onStartup.addListener(loadContextMenu);
 } 
+
+// This needs to be on a top level
+chrome.contextMenus.onClicked.addListener(openHandler);
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
