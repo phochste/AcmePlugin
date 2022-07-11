@@ -61,14 +61,27 @@ function parseKey(key) {
     return params;
 }
 
-chrome.storage.sync.get(null, (items) => {
-    var allKeys = Object.keys(items);
-    allKeys.forEach( key => {
-        let parsedKey = parseKey(key);
-        chrome.contextMenus.create(parsedKey, () => chrome.runtime.lastError);
+function loadContextMenu() {
+    chrome.storage.sync.get(null, (items) => {
+        console.log('Loading sync...');
+        var allKeys = Object.keys(items);
+        allKeys.forEach( key => {
+            let parsedKey = parseKey(key);
+            chrome.contextMenus.create(parsedKey, () => chrome.runtime.lastError);
+        });
+        chrome.contextMenus.onClicked.addListener(openHandler);
     });
-    chrome.contextMenus.onClicked.addListener(openHandler);
-});
+}
+
+if (chrome.runtime && chrome.runtime.onInstalled) {
+    console.log('onInstalled');
+    chrome.runtime.onInstalled.addListener(loadContextMenu); 
+}
+
+if (chrome.runtime && chrome.runtime.onStartup) {
+    console.log('onStartUp');
+    chrome.runtime.onStartup.addListener(loadContextMenu);
+} 
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
@@ -86,6 +99,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
             else {
                 // Some edit of an existing key..
                 // Ok don't do anything..
+                chrome.contextMenus.onClicked.addListener(openHandler);
             }
         }
 
