@@ -1,3 +1,5 @@
+We moved to https://codeberg.org/phochste/AcmePlugin
+
 # Acme Open In extension
 
 This is a Chrome extension used to open web resources with
